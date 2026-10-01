@@ -215,11 +215,6 @@ export async function fetchWeatherSnapshot(
   if (apiKey.trim() === '') {
     throw makeError('missing-key')
   }
-  if (import.meta.env.DEV) {
-    const { FIXTURE_PAYLOAD } = await import('./__fixture')
-    await new Promise((r) => setTimeout(r, 350))
-    return buildSnapshot(FIXTURE_PAYLOAD, location, Math.floor(Date.now() / 1000))
-  }
 
   const nowEpoch = Math.floor(Date.now() / 1000)
   const response = await fetch(buildTimelineUrl(location, apiKey, nowEpoch), { signal })
